@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import html2pdf from 'html2pdf.js'
 
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
+
 function App() {
     const [message, setMessage] = useState('Loading...')
     const [transcript, setTranscript] = useState(null)
@@ -10,7 +12,7 @@ function App() {
     const [videoId, setVideoId] = useState('')
 
     useEffect(() => {
-        fetch('/api/')
+        fetch(`${API_BASE}/`)
             .then(res => res.json())
             .then(data => setMessage(data.message))
             .catch(err => setMessage('Error connecting to backend'))
@@ -23,7 +25,7 @@ function App() {
         try {
             // Encode videoId to handle special characters in URLs
             const encodedVideoId = encodeURIComponent(videoId);
-            const res = await fetch(`/api/api/transcript?video_id=${encodedVideoId}`)
+            const res = await fetch(`${API_BASE}/api/transcript?video_id=${encodedVideoId}`)
             console.log(`Response status: ${res.status}`);
             const data = await res.json()
             console.log('Received data:', data);
@@ -50,7 +52,7 @@ function App() {
         setLoadingSummary(true);
         try {
             const encodedVideoId = encodeURIComponent(videoId);
-            const res = await fetch(`/api/api/summarize?video_id=${encodedVideoId}`)
+            const res = await fetch(`${API_BASE}/api/summarize?video_id=${encodedVideoId}`)
             const data = await res.json()
 
             if (res.ok) {
