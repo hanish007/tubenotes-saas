@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import html2pdf from 'html2pdf.js'
 
-const API_BASE = import.meta.env.VITE_API_URL || "/api";
+const API_BASE = "https://tubenotes-saas.onrender.com";
 
 function App() {
     const [message, setMessage] = useState('Loading...')
