@@ -5,6 +5,7 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 import os
+import re
 
 load_dotenv()
 
@@ -17,19 +18,13 @@ except KeyError:
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Allow ALL connections
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-import re
 
 @app.get("/")
 def read_root():
